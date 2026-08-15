@@ -252,6 +252,7 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note C5  $Sixteenth
     Add-Note Bb4  $Sixteenth
     Add-Note Ab4  $Sixteenth
+    Add-Note F4   $Sixteenth
     
     #measure 6 of repeat section which is identical to measure 2
     Add-Note A4 $Sixteenth
