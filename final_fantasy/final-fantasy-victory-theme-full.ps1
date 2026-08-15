@@ -155,7 +155,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Ab4 $Sixteenth
     Add-Note F4   $Sixteenth
 
-    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Ab4 $Sixteenth
     Add-Note C5  $Sixteenth
 
@@ -175,7 +176,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Ab4 $Sixteenth
     Add-Note F4   $Sixteenth
 
-    Add-Note A4 $Eighth
+    Add-Note A4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note A4 $Sixteenth
     Add-Note C5  $Sixteenth
 
@@ -195,7 +197,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Ab4 $Sixteenth
     Add-Note F4   $Sixteenth
 
-    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Ab4 $Sixteenth
     Add-Note C5  $Sixteenth
 
@@ -215,7 +218,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Ab4 $Sixteenth
     Add-Note E4   $Sixteenth
 
-    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Ab4 $Sixteenth
     Add-Note C5  $Sixteenth
 
@@ -235,7 +239,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Ab4 $Sixteenth
     Add-Note F4   $Sixteenth
 
-    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Ab4 $Sixteenth
     Add-Note C5  $Sixteenth
 
@@ -254,7 +259,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Ab4 $Sixteenth
     Add-Note F4   $Sixteenth
 
-    Add-Note A4 $Eighth
+    Add-Note A4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note A4 $Sixteenth
     Add-Note C5  $Sixteenth
 
@@ -274,7 +280,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Bb4 $Sixteenth
     Add-Note Gb4   $Sixteenth
 
-    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Bb4 $Sixteenth
     Add-Note Db5  $Sixteenth
 
@@ -294,7 +301,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Bb4 $Sixteenth
     Add-Note Gb4   $Sixteenth
 
-    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Bb4 $Sixteenth
     Add-Note Db5  $Sixteenth
 
@@ -315,7 +323,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Bb4 $Sixteenth
     Add-Note G4   $Sixteenth
 
-    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Bb4 $Sixteenth
     Add-Note D5  $Sixteenth
 
@@ -335,7 +344,8 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note Bb4 $Sixteenth
     Add-Note G4   $Sixteenth
 
-    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Rest $Sixteenth
     Add-Note Bb4 $Sixteenth
     Add-Note D5  $Sixteenth
 
