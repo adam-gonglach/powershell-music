@@ -1,0 +1,34 @@
+# Cache and data directories
+.toptal/
+.absolute/
+Output/
+out/
+
+# Pester testing framework outputs
+MaximalTests.xml
+TestResults.xml
+**/pester-analysis-*/
+
+# Local PowerShell modules and dependency overrides
+/Modules/
+/packages/
+/ExternalModules/
+
+# User-specific or environment configuration files
+*.log
+*.mode1v3
+*.mode2v3
+.env
+.env.local
+secret*.json
+credentials.xml
+
+# PowerShell Studio/PrimalScript temporary files
+*.TempPoint.*
+*.RestorePoint.*
+
+# VS Code and OS metadata
+.vscode/
+.history/
+.DS_Store
+Thumbs.db
