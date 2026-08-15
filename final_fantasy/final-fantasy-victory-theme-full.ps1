@@ -2,6 +2,7 @@
 # Final Fantasy VII Victory Fanfare - PCM Audio Synth
 # Generates exact-frequency PCM samples and plays them through
 # the Windows audio subsystem using System.Media.SoundPlayer.
+# Arrangement URL: https://musescore.com/user/79241176/scores/6421717?srsltid=AfmBOorb4o_KpNj2jB6je1GD1I1K9AsHdOqTpoR42TATjbuFqdFLxpgl
 # ============================================================
 
 # ------------------------------------------------------------
@@ -77,11 +78,13 @@ $Notes = @{
 # ------------------------------------------------------------
 
 $Quarter        = 60000.0 / $Bpm
+$DottedHalf     = $Quarter * 3.0
 $Half           = $Quarter * 2.0
 $Whole          = $Quarter * 4.0
 $Eighth         = $Quarter / 2.0
 $Sixteenth      = $Quarter / 4.0
 $TripletEighth  = $Quarter / 3.0
+$TripleSixteenth = $Quarter / 6.0
 
 # ------------------------------------------------------------
 # Build the score first so all timing is sample-accurate.
@@ -126,17 +129,226 @@ function Add-Rest {
 # THE MELODY
 # ============================================================
 
-Add-Note C5 $TripletEighth
-Add-Note C5 $TripletEighth
-Add-Note C5 $TripletEighth
-Add-Note C5 $Quarter
+Add-Note C5     $TripleSixteenth
+Add-Rest        $TripleSixteenth
+Add-Note C5     $TripleSixteenth
+Add-Rest        $TripleSixteenth
+Add-Note C5     $TripleSixteenth
+Add-Rest        $TripleSixteenth
+Add-Note C5     $Quarter
 
-Add-Note Ab4 $Quarter
-Add-Note Bb4 $Quarter
-Add-Note C5 $TripletEighth
-Add-Rest $TripletEighth
-Add-Note Bb4 $TripletEighth
-Add-Note C5 $DottedHalf 
+Add-Note Ab4    $Quarter
+Add-Note Bb4    $Quarter
+Add-Note C5     $TripletEighth
+Add-Rest        $TripletEighth
+Add-Note Bb4    $TripletEighth
+Add-Note C5     $DottedHalf 
+
+
+
+# repeat section twice
+for ($i = 1; $i -le 2; $i++)
+{
+    # measure 1 of repeat section
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Ab4 $Sixteenth
+    Add-Note F4   $Sixteenth
+
+    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note Ab4  $Sixteenth
+    Add-Note F4  $Sixteenth
+    Add-Note Ab4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note A4  $Sixteenth
+    Add-Note F4  $Sixteenth
+
+    # measure 2 of repeat section
+    Add-Note A4 $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Ab4 $Sixteenth
+    Add-Note F4   $Sixteenth
+
+    Add-Note A4 $Eighth
+    Add-Note A4 $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note A4  $Sixteenth
+    Add-Note F4  $Sixteenth
+    Add-Note A4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note A4  $Sixteenth
+    Add-Note F4  $Sixteenth
+
+    #measure 3 of repeat section, which is identical to measure 1
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Ab4 $Sixteenth
+    Add-Note F4   $Sixteenth
+
+    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note Ab4  $Sixteenth
+    Add-Note F4  $Sixteenth
+    Add-Note Ab4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note A4  $Sixteenth
+    Add-Note F4  $Sixteenth
+
+    #measure 4 of loop
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Ab4 $Sixteenth
+    Add-Note E4   $Sixteenth
+
+    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note Ab4  $Sixteenth
+    Add-Note E4  $Sixteenth
+    Add-Note Ab4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note Ab4  $Sixteenth
+    Add-Note E4  $Sixteenth
+
+    #measure 5 of repeat section
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Ab4 $Sixteenth
+    Add-Note F4   $Sixteenth
+
+    Add-Note Ab4 $Eighth
+    Add-Note Ab4 $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note Ab4  $Sixteenth
+    Add-Note F4  $Sixteenth
+    Add-Note Ab4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note Ab4  $Sixteenth
+    
+    #measure 6 of repeat section which is identical to measure 2
+    Add-Note A4 $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Ab4 $Sixteenth
+    Add-Note F4   $Sixteenth
+
+    Add-Note A4 $Eighth
+    Add-Note A4 $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note A4  $Sixteenth
+    Add-Note F4  $Sixteenth
+    Add-Note A4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note A4  $Sixteenth
+    Add-Note F4  $Sixteenth
+
+    #measure 7 of repeat section
+    Add-Note Bb4 $Sixteenth
+    Add-Note Db5  $Sixteenth
+    Add-Note Bb4 $Sixteenth
+    Add-Note Gb4   $Sixteenth
+
+    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Note Db5  $Sixteenth
+
+    Add-Note Bb4  $Sixteenth
+    Add-Note Gb4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note Db5  $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note Gb4  $Sixteenth
+
+    #measure 8 of repeat section which is identical to measure 7
+    Add-Note Bb4 $Sixteenth
+    Add-Note Db5  $Sixteenth
+    Add-Note Bb4 $Sixteenth
+    Add-Note Gb4   $Sixteenth
+
+    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Note Db5  $Sixteenth
+
+    Add-Note Bb4  $Sixteenth
+    Add-Note Gb4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note Db5  $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note Gb4  $Sixteenth
+
+    #measure 9 of repeat section which is almost identical to measures 7 and 8
+    #but we use D5 and G4 instead of Db5 and Gb4
+    Add-Note Bb4 $Sixteenth
+    Add-Note D5  $Sixteenth
+    Add-Note Bb4 $Sixteenth
+    Add-Note G4   $Sixteenth
+
+    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Note D5  $Sixteenth
+
+    Add-Note Bb4  $Sixteenth
+    Add-Note G4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note D5  $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note G4  $Sixteenth
+
+    #measure 10 of repeat section, which is identical to measure 9
+    Add-Note Bb4 $Sixteenth
+    Add-Note D5  $Sixteenth
+    Add-Note Bb4 $Sixteenth
+    Add-Note G4   $Sixteenth
+
+    Add-Note Bb4 $Eighth
+    Add-Note Bb4 $Sixteenth
+    Add-Note D5  $Sixteenth
+
+    Add-Note Bb4  $Sixteenth
+    Add-Note G4  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note C5  $Sixteenth
+
+    Add-Note D5  $Sixteenth
+    Add-Note C5  $Sixteenth
+    Add-Note Bb4  $Sixteenth
+    Add-Note G4  $Sixteenth
+}
 
 # ------------------------------------------------------------
 # PCM Sample Generation
