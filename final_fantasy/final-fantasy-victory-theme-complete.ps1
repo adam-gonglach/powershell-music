@@ -507,23 +507,59 @@ $Ebm7           = @("Eb4", "Gb4", "Bb4", "Db5")
 
 for ($i = 1; $i -le 2; $i++) {
 
-    # Repeat measure 1 / score measure 2
-    Add-RepeatedHarmonyChord $DHalfDim7 8 $Eighth
+    for ($first = 1; $first -le 8; $first++)
+    {
+        Add-HarmonyChord $DHalfDim7 $Sixteenth
+        Add-HarmonyRest        $Sixteenth
+    }
 
-    # Repeat measure 2 / score measure 3
-    Add-RepeatedHarmonyChord $Dm7 8 $Eighth
+    for ($second = 1; $second -le 8; $second++)
+    {
+        Add-HarmonyChord $DHalfDim7 $Sixteenth
+        Add-HarmonyRest        $Sixteenth
+    }
 
-    # Repeat measure 3 / score measure 4
-    Add-RepeatedHarmonyChord $DHalfDim7 8 $Eighth
+    for ($third = 1; $third -le 8; $third++)
+    {
+        Add-HarmonyChord $DHalfDim7 $Sixteenth
+        Add-HarmonyRest        $Sixteenth
+    }
 
-    # Repeat measure 4 / score measure 5
-    Add-RepeatedHarmonyChord $ChromaticChord 8 $Eighth
+    for ($fourth = 1; $fourth -le 8; $fourth++)
+    {
+        Add-HarmonyChord $DHalfDim7 $Sixteenth
+        Add-HarmonyRest        $Sixteenth
+    }
 
-    # Repeat measure 5 / score measure 6
-    Add-RepeatedHarmonyChord $DHalfDim7 8 $Eighth
+    for ($fifth = 1; $fifth -le 8; $fifth++)
+    {
+        Add-HarmonyChord $DHalfDim7 $Sixteenth
+        Add-HarmonyRest        $Sixteenth
+    }
+    
+    for ($sixth = 1; $sixth -le 8; $sixth++)
+    {
+        Add-HarmonyChord $DHalfDim7 $Sixteenth
+        Add-HarmonyRest        $Sixteenth
+    }
 
-    # Repeat measure 6 / score measure 7
-    Add-RepeatedHarmonyChord $Dm7 8 $Eighth
+    # # Repeat measure 1 / score measure 2
+    # Add-RepeatedHarmonyChord $DHalfDim7 8 $Sixteenth
+
+    # # Repeat measure 2 / score measure 3
+    # Add-RepeatedHarmonyChord $Dm7 8 $Sixteenth
+
+    # # Repeat measure 3 / score measure 4
+    # Add-RepeatedHarmonyChord $DHalfDim7 8 $Sixteenth
+
+    # # Repeat measure 4 / score measure 5
+    # Add-RepeatedHarmonyChord $ChromaticChord 8 $Sixteenth
+
+    # # Repeat measure 5 / score measure 6
+    # Add-RepeatedHarmonyChord $DHalfDim7 8 $Sixteenth
+
+    # # Repeat measure 6 / score measure 7
+    # Add-RepeatedHarmonyChord $Dm7 8 $Sixteenth
 
     # Repeat measures 7-10 / score measures 8-11.
     # The Ebm7 chord is tied across all four measures, so render it
