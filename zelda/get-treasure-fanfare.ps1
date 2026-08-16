@@ -125,7 +125,7 @@ $Eb4_C5 = @("Eb4", "C5")
 
 
 # harmony intervals
-$C3_F3 = @("C3", "F4")
+$C3_F3 = @("C3", "F3")
 $Db3_Gb3 = @("Db3", "Gb3")
 $D3_B3 = @("D3", "G3")
 $Eb3_Ab3 = @("Eb3", "Ab3")
