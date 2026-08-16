@@ -262,6 +262,8 @@ function Add-HarmonyRest {
     })
 }
 
+Write-Host "Building Melody..."
+
 # ============================================================
 # THE MELODY
 # ============================================================
@@ -273,56 +275,22 @@ for ($i = 1; $i -le 2; $i++)
 
 }
 
+Write-Host "Done Building Melody"
+
+
 # ============================================================
 # THE HARMONY / LEFT-HAND PART
 # ============================================================
 
+Write-Host "Building Harmony..."
+
+for ($i = 1; $i -le 2; $i++) 
+{
 
 
-for ($i = 1; $i -le 2; $i++) {
-
-    for ($first = 1; $first -le 8; $first++)
-    {
-        Add-Harmony-Chord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
-    }
-
-    for ($second = 1; $second -le 8; $second++)
-    {
-        Add-Harmony-Chord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
-    }
-
-    for ($third = 1; $third -le 8; $third++)
-    {
-        Add-Harmony-Chord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
-    }
-
-    for ($fourth = 1; $fourth -le 8; $fourth++)
-    {
-        Add-Harmony-Chord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
-    }
-
-    for ($fifth = 1; $fifth -le 8; $fifth++)
-    {
-        Add-Harmony-Chord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
-    }
-    
-    for ($sixth = 1; $sixth -le 8; $sixth++)
-    {
-        Add-Harmony-Chord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
-    }
-
-    # Repeat measures 7-10 / score measures 8-11.
-    # The Ebm7 chord is tied across all four measures, so render it
-    # as one continuous event rather than re-attacking it.
-    Add-Harmony-Chord $Ebm7 ($Whole * 4.0)
 }
 
+Write-Host "Done Building Harmony"
 
 # ------------------------------------------------------------
 # PCM Sample Generation / Track Mixing
@@ -428,7 +396,10 @@ function Render-Track {
     Write-Output -NoEnumerate $Buffer
 }
 
+Write-Host "Rendering Melody Track"
 $MelodySamples  = Render-Track $Score
+
+Write-Host "Rendering Harmony Track"
 $HarmonySamples = Render-Track $HarmonyScore
 
 if ($MelodySamples.Length -ne $HarmonySamples.Length) {

@@ -193,6 +193,8 @@ function Add-HarmonyRest {
     })
 }
 
+Write-Host "Building Melody..."
+
 # ============================================================
 # THE MELODY
 # ============================================================
@@ -432,6 +434,11 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note G4  $Sixteenth
 }
 
+Write-Host "Done Building Melody"
+
+
+Write-Host "Building Harmony..."
+
 # ============================================================
 # THE HARMONY / LEFT-HAND PART
 # ============================================================
@@ -535,6 +542,7 @@ for ($i = 1; $i -le 2; $i++) {
     Add-HarmonyChord $Ebm7 ($Whole * 4.0)
 }
 
+Write-Host "Done Building Harmony"
 
 # ------------------------------------------------------------
 # PCM Sample Generation / Track Mixing
@@ -640,7 +648,12 @@ function Render-Track {
     Write-Output -NoEnumerate $Buffer
 }
 
+Write-Host "Rendering Melody Track"
+
 $MelodySamples  = Render-Track $Score
+
+Write-Host "Rendering Harmony Track"
+
 $HarmonySamples = Render-Track $HarmonyScore
 
 if ($MelodySamples.Length -ne $HarmonySamples.Length) {
