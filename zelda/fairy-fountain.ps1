@@ -134,10 +134,6 @@ $TripletEighth  = $Quarter / 3.0
 $TripleSixteenth = $Quarter / 6.0
 $ThirtySecond  =    $Quarter / 8.0
 
-# non standard note lengths 
-$QuarterTiedToOneSixteenth = $Quarter + $Sixteenth
-$QuarterTiedToTwoSixteenths = $Quarter + 2.0 * $Sixteenth
-
 # ------------------------------------------------------------
 # Build the score first so all timing is sample-accurate.
 # ------------------------------------------------------------
