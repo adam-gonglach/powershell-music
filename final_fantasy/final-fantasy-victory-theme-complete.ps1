@@ -9,7 +9,7 @@
 # Song / Audio Settings
 # ------------------------------------------------------------
 
-$Bpm        = 130        # Original score is marked 120; 130 preserves your current tempo.
+$Bpm        = 132        # Original score is marked 120
 $SampleRate = 44100
 $Volume     = 0.35       # 0.0 to 1.0
 $Waveform   = "Square"   # "Sine" or "Square"
@@ -88,6 +88,7 @@ $Eighth         = $Quarter / 2.0
 $Sixteenth      = $Quarter / 4.0
 $TripletEighth  = $Quarter / 3.0
 $TripleSixteenth = $Quarter / 6.0
+$ThirtySecond  =    $Quarter / 8.0
 
 # ------------------------------------------------------------
 # Build the score first so all timing is sample-accurate.
@@ -190,23 +191,6 @@ function Add-HarmonyRest {
         Type       = "Rest"
         DurationMs = $DurationMs
     })
-}
-
-function Add-RepeatedHarmonyChord {
-    param(
-        [Parameter(Mandatory)]
-        [string[]]$ChordNotes,
-
-        [Parameter(Mandatory)]
-        [int]$Count,
-
-        [Parameter(Mandatory)]
-        [double]$DurationMs
-    )
-
-    for ($i = 0; $i -lt $Count; $i++) {
-        Add-HarmonyChord $ChordNotes $DurationMs
-    }
 }
 
 # ============================================================
@@ -486,7 +470,7 @@ Add-HarmonyNote Db3 $TripletEighth
 Add-HarmonyNote F3  $TripletEighth
 Add-HarmonyNote A3  $TripletEighth
 
-# Final eight-note run is written under 8va in the bass staff.
+# Final sixteenth-note run is written under 8va in the bass staff.
 # These are the sounding pitches. The fourth written note is C#,
 # represented here enharmonically as Db because the note table uses flats.
 Add-HarmonyNote C5  $Sixteenth
@@ -498,8 +482,10 @@ Add-HarmonyNote Ab3 $Sixteenth
 Add-HarmonyNote F3  $Sixteenth
 Add-HarmonyNote C3  $Sixteenth
 
+
 # Main 4/4 section.
 # The first six measures use eight staccato eighth-note chords per measure.
+# staccato eights are represented by sixteenth notes paired with a sixteenth rest
 $DHalfDim7      = @("D4",  "F4", "Ab4", "C5")
 $Dm7            = @("D4",  "F4", "A4",  "C5")
 $ChromaticChord = @("Db4", "E4", "A4",  "C5")
@@ -542,24 +528,6 @@ for ($i = 1; $i -le 2; $i++) {
         Add-HarmonyChord $DHalfDim7 $Sixteenth
         Add-HarmonyRest        $Sixteenth
     }
-
-    # # Repeat measure 1 / score measure 2
-    # Add-RepeatedHarmonyChord $DHalfDim7 8 $Sixteenth
-
-    # # Repeat measure 2 / score measure 3
-    # Add-RepeatedHarmonyChord $Dm7 8 $Sixteenth
-
-    # # Repeat measure 3 / score measure 4
-    # Add-RepeatedHarmonyChord $DHalfDim7 8 $Sixteenth
-
-    # # Repeat measure 4 / score measure 5
-    # Add-RepeatedHarmonyChord $ChromaticChord 8 $Sixteenth
-
-    # # Repeat measure 5 / score measure 6
-    # Add-RepeatedHarmonyChord $DHalfDim7 8 $Sixteenth
-
-    # # Repeat measure 6 / score measure 7
-    # Add-RepeatedHarmonyChord $Dm7 8 $Sixteenth
 
     # Repeat measures 7-10 / score measures 8-11.
     # The Ebm7 chord is tied across all four measures, so render it
