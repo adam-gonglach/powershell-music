@@ -1,7 +1,7 @@
 # ============================================================
 # Final Fantasy VII Victory Fanfare - PCM Audio Synth
-# Generates exact-frequency PCM samples and plays them through
-# the Windows audio subsystem using System.Media.SoundPlayer.
+# Melody + left-hand harmony transcribed into independent tracks,
+# mixed into a mono PCM WAV, and played with System.Media.SoundPlayer.
 # Arrangement URL: https://musescore.com/user/79241176/scores/6421717?srsltid=AfmBOorb4o_KpNj2jB6je1GD1I1K9AsHdOqTpoR42TATjbuFqdFLxpgl
 # ============================================================
 
@@ -9,7 +9,7 @@
 # Song / Audio Settings
 # ------------------------------------------------------------
 
-$Bpm        = 130
+$Bpm        = 130        # Original score is marked 120; 130 preserves your current tempo.
 $SampleRate = 44100
 $Volume     = 0.35       # 0.0 to 1.0
 $Waveform   = "Square"   # "Sine" or "Square"
@@ -26,7 +26,8 @@ $ArticulationGapMs = 18
 # ------------------------------------------------------------
 
 $Notes = @{
-    # Ocatve 2
+
+    # Octave 2
     Bb2 = 116.5409
 
     # Octave 3
@@ -127,10 +128,94 @@ function Add-Rest {
     })
 }
 
+# ------------------------------------------------------------
+# Harmony Track Helpers
+# ------------------------------------------------------------
+
+$HarmonyScore = [System.Collections.Generic.List[object]]::new()
+
+function Add-HarmonyNote {
+    param(
+        [Parameter(Mandatory)]
+        [string]$Note,
+
+        [Parameter(Mandatory)]
+        [double]$DurationMs
+    )
+
+    if (-not $Notes.ContainsKey($Note)) {
+        throw "Unknown harmony note: $Note"
+    }
+
+    $HarmonyScore.Add([pscustomobject]@{
+        Type       = "Note"
+        Note       = $Note
+        Frequency  = [double]$Notes[$Note]
+        DurationMs = $DurationMs
+    })
+}
+
+function Add-HarmonyChord {
+    param(
+        [Parameter(Mandatory)]
+        [string[]]$ChordNotes,
+
+        [Parameter(Mandatory)]
+        [double]$DurationMs
+    )
+
+    $Frequencies = foreach ($Note in $ChordNotes) {
+        if (-not $Notes.ContainsKey($Note)) {
+            throw "Unknown harmony note: $Note"
+        }
+
+        [double]$Notes[$Note]
+    }
+
+    $HarmonyScore.Add([pscustomobject]@{
+        Type        = "Chord"
+        Notes       = [string[]]$ChordNotes
+        Frequencies = [double[]]$Frequencies
+        DurationMs  = $DurationMs
+    })
+}
+
+function Add-HarmonyRest {
+    param(
+        [Parameter(Mandatory)]
+        [double]$DurationMs
+    )
+
+    $HarmonyScore.Add([pscustomobject]@{
+        Type       = "Rest"
+        DurationMs = $DurationMs
+    })
+}
+
+function Add-RepeatedHarmonyChord {
+    param(
+        [Parameter(Mandatory)]
+        [string[]]$ChordNotes,
+
+        [Parameter(Mandatory)]
+        [int]$Count,
+
+        [Parameter(Mandatory)]
+        [double]$DurationMs
+    )
+
+    for ($i = 0; $i -lt $Count; $i++) {
+        Add-HarmonyChord $ChordNotes $DurationMs
+    }
+}
+
 # ============================================================
 # THE MELODY
 # ============================================================
-Add-Rest        $Quarter
+
+# The 9/4 intro begins with a quarter-note rest.
+Add-Rest $Quarter
+
 Add-Note C5     $TripleSixteenth
 Add-Rest        $TripleSixteenth
 Add-Note C5     $TripleSixteenth
@@ -254,7 +339,7 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note C5  $Sixteenth
     Add-Note Bb4  $Sixteenth
     Add-Note Ab4  $Sixteenth
-    Add-Note F4   $Sixteenth
+    Add-Note F4  $Sixteenth
     
     #measure 6 of repeat section which is identical to measure 2
     Add-Note A4 $Sixteenth
@@ -363,96 +448,225 @@ for ($i = 1; $i -le 2; $i++)
     Add-Note G4  $Sixteenth
 }
 
-# ------------------------------------------------------------
-# PCM Sample Generation
-# ------------------------------------------------------------
+# ============================================================
+# THE HARMONY / LEFT-HAND PART
+# ============================================================
 
-$Samples = [System.Collections.Generic.List[int16]]::new()
+# Intro, 9/4.
+# The first six groups are eighth-note triplets in bass clef.
+Add-HarmonyRest $Quarter
 
-function Add-SilenceSamples {
-    param([double]$DurationMs)
+# Triplet 1
+Add-HarmonyNote C3 $TripletEighth
+Add-HarmonyNote E3 $TripletEighth
+Add-HarmonyNote G3 $TripletEighth
 
-    $Count = [int][Math]::Round(($DurationMs / 1000.0) * $SampleRate)
+# Triplet 2
+Add-HarmonyNote C4  $TripletEighth
+Add-HarmonyNote G3  $TripletEighth
+Add-HarmonyNote Eb3 $TripletEighth
 
-    for ($i = 0; $i -lt $Count; $i++) {
-        $Samples.Add([int16]0)
-    }
+# Triplet 3
+Add-HarmonyNote Db3 $TripletEighth
+Add-HarmonyNote Eb3 $TripletEighth
+Add-HarmonyNote Ab3 $TripletEighth
+
+# Triplet 4
+Add-HarmonyNote Bb2 $TripletEighth
+Add-HarmonyNote D3  $TripletEighth
+Add-HarmonyNote F3  $TripletEighth
+
+# Triplet 5
+Add-HarmonyNote F3  $TripletEighth
+Add-HarmonyNote Ab3 $TripletEighth
+Add-HarmonyNote Bb3 $TripletEighth
+
+# Triplet 6
+Add-HarmonyNote Db3 $TripletEighth
+Add-HarmonyNote F3  $TripletEighth
+Add-HarmonyNote A3  $TripletEighth
+
+# Final eight-note run is written under 8va in the bass staff.
+# These are the sounding pitches. The fourth written note is C#,
+# represented here enharmonically as Db because the note table uses flats.
+Add-HarmonyNote C5  $Sixteenth
+Add-HarmonyNote Ab4 $Sixteenth
+Add-HarmonyNote F4  $Sixteenth
+Add-HarmonyNote Db4 $Sixteenth
+Add-HarmonyNote C4  $Sixteenth
+Add-HarmonyNote Ab3 $Sixteenth
+Add-HarmonyNote F3  $Sixteenth
+Add-HarmonyNote C3  $Sixteenth
+
+# Main 4/4 section.
+# The first six measures use eight staccato eighth-note chords per measure.
+$DHalfDim7      = @("D4",  "F4", "Ab4", "C5")
+$Dm7            = @("D4",  "F4", "A4",  "C5")
+$ChromaticChord = @("Db4", "E4", "A4",  "C5")
+$Ebm7           = @("Eb4", "Gb4", "Bb4", "Db5")
+
+for ($i = 1; $i -le 2; $i++) {
+
+    # Repeat measure 1 / score measure 2
+    Add-RepeatedHarmonyChord $DHalfDim7 8 $Eighth
+
+    # Repeat measure 2 / score measure 3
+    Add-RepeatedHarmonyChord $Dm7 8 $Eighth
+
+    # Repeat measure 3 / score measure 4
+    Add-RepeatedHarmonyChord $DHalfDim7 8 $Eighth
+
+    # Repeat measure 4 / score measure 5
+    Add-RepeatedHarmonyChord $ChromaticChord 8 $Eighth
+
+    # Repeat measure 5 / score measure 6
+    Add-RepeatedHarmonyChord $DHalfDim7 8 $Eighth
+
+    # Repeat measure 6 / score measure 7
+    Add-RepeatedHarmonyChord $Dm7 8 $Eighth
+
+    # Repeat measures 7-10 / score measures 8-11.
+    # The Ebm7 chord is tied across all four measures, so render it
+    # as one continuous event rather than re-attacking it.
+    Add-HarmonyChord $Ebm7 ($Whole * 4.0)
 }
 
-function Add-ToneSamples {
+
+# ------------------------------------------------------------
+# PCM Sample Generation / Track Mixing
+# ------------------------------------------------------------
+
+function Render-Track {
     param(
-        [double]$Frequency,
-        [double]$DurationMs
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.List[object]]$Track
     )
 
-    $ToneDurationMs = [Math]::Max(0.0, $DurationMs - $ArticulationGapMs)
-    $SampleCount    = [int][Math]::Round(($ToneDurationMs / 1000.0) * $SampleRate)
-
-    if ($SampleCount -le 0) {
-        Add-SilenceSamples $DurationMs
-        return
+    $TotalMs = 0.0
+    foreach ($Event in $Track) {
+        $TotalMs += [double]$Event.DurationMs
     }
 
-    $AttackSamples  = [int][Math]::Round(($AttackMs  / 1000.0) * $SampleRate)
-    $ReleaseSamples = [int][Math]::Round(($ReleaseMs / 1000.0) * $SampleRate)
+    $TotalSamples = [int][Math]::Round(($TotalMs / 1000.0) * $SampleRate)
+    $Buffer = [double[]]::new($TotalSamples)
 
-    $AttackSamples  = [Math]::Min($AttackSamples,  [int]($SampleCount / 2))
-    $ReleaseSamples = [Math]::Min($ReleaseSamples, [int]($SampleCount / 2))
+    $ElapsedMs = 0.0
+    $TwoPi = 2.0 * [Math]::PI
+    $UseSine = $Waveform.Equals("Sine", [System.StringComparison]::OrdinalIgnoreCase)
+    $UseSquare = $Waveform.Equals("Square", [System.StringComparison]::OrdinalIgnoreCase)
 
-    $Amplitude = 32767.0 * [Math]::Max(0.0, [Math]::Min(1.0, $Volume))
-    $TwoPi     = 2.0 * [Math]::PI
-
-    for ($i = 0; $i -lt $SampleCount; $i++) {
-        $Time  = $i / [double]$SampleRate
-        $Phase = $TwoPi * $Frequency * $Time
-
-        switch ($Waveform.ToLowerInvariant()) {
-            "sine" {
-                $Value = [Math]::Sin($Phase)
-            }
-
-            "square" {
-                # Slightly soften the square wave by adding a small
-                # third harmonic instead of using a mathematically
-                # perfect hard-edged square. It sounds less abrasive.
-                $Fundamental = [Math]::Sin($Phase)
-                $Third       = [Math]::Sin(3.0 * $Phase) / 3.0
-                $Value       = ($Fundamental + $Third) * 0.75
-            }
-
-            default {
-                throw "Unsupported waveform '$Waveform'. Use Sine or Square."
-            }
-        }
-
-        $Envelope = 1.0
-
-        if ($AttackSamples -gt 0 -and $i -lt $AttackSamples) {
-            $Envelope = $i / [double]$AttackSamples
-        }
-        elseif ($ReleaseSamples -gt 0 -and $i -ge ($SampleCount - $ReleaseSamples)) {
-            $Envelope = ($SampleCount - 1 - $i) / [double]$ReleaseSamples
-        }
-
-        $Envelope = [Math]::Max(0.0, [Math]::Min(1.0, $Envelope))
-        $PcmValue = [int][Math]::Round($Value * $Envelope * $Amplitude)
-        $PcmValue = [Math]::Max([int16]::MinValue, [Math]::Min([int16]::MaxValue, $PcmValue))
-
-        $Samples.Add([int16]$PcmValue)
+    if (-not $UseSine -and -not $UseSquare) {
+        throw "Unsupported waveform '$Waveform'. Use Sine or Square."
     }
 
-    if ($ArticulationGapMs -gt 0) {
-        Add-SilenceSamples $ArticulationGapMs
+    foreach ($Event in $Track) {
+
+        # Derive every boundary from absolute elapsed time. This avoids
+        # accumulating rounding error when the tracks use different rhythms.
+        $StartSample = [int][Math]::Round(($ElapsedMs / 1000.0) * $SampleRate)
+        $ElapsedMs += [double]$Event.DurationMs
+        $EndSample = [int][Math]::Round(($ElapsedMs / 1000.0) * $SampleRate)
+
+        $EventSampleCount = $EndSample - $StartSample
+
+        if ($Event.Type -eq "Rest" -or $EventSampleCount -le 0) {
+            continue
+        }
+
+        $GapSamples = [int][Math]::Round(($ArticulationGapMs / 1000.0) * $SampleRate)
+        $ToneSampleCount = [Math]::Max(0, $EventSampleCount - $GapSamples)
+
+        if ($ToneSampleCount -le 0) {
+            continue
+        }
+
+        $AttackSamples = [int][Math]::Round(($AttackMs / 1000.0) * $SampleRate)
+        $ReleaseSamples = [int][Math]::Round(($ReleaseMs / 1000.0) * $SampleRate)
+
+        $AttackSamples = [Math]::Min($AttackSamples, [int]($ToneSampleCount / 2))
+        $ReleaseSamples = [Math]::Min($ReleaseSamples, [int]($ToneSampleCount / 2))
+
+        if ($Event.Type -eq "Chord") {
+            [double[]]$Frequencies = $Event.Frequencies
+        }
+        else {
+            [double[]]$Frequencies = @([double]$Event.Frequency)
+        }
+
+        for ($j = 0; $j -lt $ToneSampleCount; $j++) {
+
+            $Time = $j / [double]$SampleRate
+            $Value = 0.0
+
+            foreach ($Frequency in $Frequencies) {
+
+                $Phase = $TwoPi * $Frequency * $Time
+
+                if ($UseSine) {
+                    $Voice = [Math]::Sin($Phase)
+                }
+                else {
+                    # Softened square wave: fundamental + third harmonic.
+                    $Fundamental = [Math]::Sin($Phase)
+                    $Third       = [Math]::Sin(3.0 * $Phase) / 3.0
+                    $Voice       = ($Fundamental + $Third) * 0.75
+                }
+
+                $Value += $Voice
+            }
+
+            # Normalize chords so four simultaneous voices do not
+            # automatically produce four times the signal level.
+            $Value /= [double]$Frequencies.Count
+
+            $Envelope = 1.0
+
+            if ($AttackSamples -gt 0 -and $j -lt $AttackSamples) {
+                $Envelope = $j / [double]$AttackSamples
+            }
+            elseif ($ReleaseSamples -gt 0 -and $j -ge ($ToneSampleCount - $ReleaseSamples)) {
+                $Envelope = ($ToneSampleCount - 1 - $j) / [double]$ReleaseSamples
+            }
+
+            $Envelope = [Math]::Max(0.0, [Math]::Min(1.0, $Envelope))
+            $Buffer[$StartSample + $j] = $Value * $Envelope
+        }
     }
+
+    Write-Output -NoEnumerate $Buffer
 }
 
-foreach ($Event in $Score) {
-    if ($Event.Type -eq "Rest") {
-        Add-SilenceSamples $Event.DurationMs
-    }
-    else {
-        Add-ToneSamples $Event.Frequency $Event.DurationMs
-    }
+$MelodySamples  = Render-Track $Score
+$HarmonySamples = Render-Track $HarmonyScore
+
+if ($MelodySamples.Length -ne $HarmonySamples.Length) {
+    throw @"
+Track lengths do not match.
+
+Melody:  $($MelodySamples.Length) samples
+Harmony: $($HarmonySamples.Length) samples
+"@
+}
+
+# Keep the melody slightly forward in the mix.
+$MelodyGain  = 1.00
+$HarmonyGain = 0.70
+$GainSum     = $MelodyGain + $HarmonyGain
+
+$Samples = [System.Collections.Generic.List[int16]]::new($MelodySamples.Length)
+$Amplitude = 32767.0 * [Math]::Max(0.0, [Math]::Min(1.0, $Volume))
+
+for ($i = 0; $i -lt $MelodySamples.Length; $i++) {
+
+    $Mixed = (
+        ($MelodySamples[$i]  * $MelodyGain) +
+        ($HarmonySamples[$i] * $HarmonyGain)
+    ) / $GainSum
+
+    $PcmValue = [int][Math]::Round($Mixed * $Amplitude)
+    $PcmValue = [Math]::Max([int16]::MinValue, [Math]::Min([int16]::MaxValue, $PcmValue))
+
+    $Samples.Add([int16]$PcmValue)
 }
 
 # ------------------------------------------------------------
