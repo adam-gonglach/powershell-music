@@ -263,7 +263,6 @@ function Add-HarmonyRest {
 }
 
 Write-Host "Building Melody..."
-
 # ============================================================
 # THE MELODY
 # ============================================================
@@ -278,12 +277,12 @@ for ($i = 1; $i -le 2; $i++)
 Write-Host "Done Building Melody"
 
 
+Write-Host "Building Harmony..."
 # ============================================================
 # THE HARMONY / LEFT-HAND PART
 # ============================================================
 
-Write-Host "Building Harmony..."
-
+# repeat section twice
 for ($i = 1; $i -le 2; $i++) 
 {
 
