@@ -135,7 +135,7 @@ function Add-Rest {
 
 $HarmonyScore = [System.Collections.Generic.List[object]]::new()
 
-function Add-HarmonyNote {
+function Add-Harmony-Note {
     param(
         [Parameter(Mandatory)]
         [string]$Note,
@@ -156,7 +156,7 @@ function Add-HarmonyNote {
     })
 }
 
-function Add-HarmonyChord {
+function Add-Harmony-Chord {
     param(
         [Parameter(Mandatory)]
         [string[]]$ChordNotes,
@@ -181,7 +181,7 @@ function Add-HarmonyChord {
     })
 }
 
-function Add-HarmonyRest {
+function Add-Harmony-Rest {
     param(
         [Parameter(Mandatory)]
         [double]$DurationMs
@@ -445,49 +445,49 @@ Write-Host "Building Harmony..."
 
 # Intro, 9/4.
 # The first six groups are eighth-note triplets in bass clef.
-Add-HarmonyRest $Quarter
+Add-Harmony-Rest $Quarter
 
 # Triplet 1
-Add-HarmonyNote C3 $TripletEighth
-Add-HarmonyNote E3 $TripletEighth
-Add-HarmonyNote G3 $TripletEighth
+Add-Harmony-Note C3 $TripletEighth
+Add-Harmony-Note E3 $TripletEighth
+Add-Harmony-Note G3 $TripletEighth
 
 # Triplet 2
-Add-HarmonyNote C4  $TripletEighth
-Add-HarmonyNote G3  $TripletEighth
-Add-HarmonyNote Eb3 $TripletEighth
+Add-Harmony-Note C4  $TripletEighth
+Add-Harmony-Note G3  $TripletEighth
+Add-Harmony-Note Eb3 $TripletEighth
 
 # Triplet 3
-Add-HarmonyNote Db3 $TripletEighth
-Add-HarmonyNote Eb3 $TripletEighth
-Add-HarmonyNote Ab3 $TripletEighth
+Add-Harmony-Note Db3 $TripletEighth
+Add-Harmony-Note Eb3 $TripletEighth
+Add-Harmony-Note Ab3 $TripletEighth
 
 # Triplet 4
-Add-HarmonyNote Bb2 $TripletEighth
-Add-HarmonyNote D3  $TripletEighth
-Add-HarmonyNote F3  $TripletEighth
+Add-Harmony-Note Bb2 $TripletEighth
+Add-Harmony-Note D3  $TripletEighth
+Add-Harmony-Note F3  $TripletEighth
 
 # Triplet 5
-Add-HarmonyNote F3  $TripletEighth
-Add-HarmonyNote Ab3 $TripletEighth
-Add-HarmonyNote Bb3 $TripletEighth
+Add-Harmony-Note F3  $TripletEighth
+Add-Harmony-Note Ab3 $TripletEighth
+Add-Harmony-Note Bb3 $TripletEighth
 
 # Triplet 6
-Add-HarmonyNote Db3 $TripletEighth
-Add-HarmonyNote F3  $TripletEighth
-Add-HarmonyNote A3  $TripletEighth
+Add-Harmony-Note Db3 $TripletEighth
+Add-Harmony-Note F3  $TripletEighth
+Add-Harmony-Note A3  $TripletEighth
 
 # Final sixteenth-note run is written under 8va in the bass staff.
 # These are the sounding pitches. The fourth written note is C#,
 # represented here enharmonically as Db because the note table uses flats.
-Add-HarmonyNote C5  $Sixteenth
-Add-HarmonyNote Ab4 $Sixteenth
-Add-HarmonyNote F4  $Sixteenth
-Add-HarmonyNote Db4 $Sixteenth
-Add-HarmonyNote C4  $Sixteenth
-Add-HarmonyNote Ab3 $Sixteenth
-Add-HarmonyNote F3  $Sixteenth
-Add-HarmonyNote C3  $Sixteenth
+Add-Harmony-Note C5  $Sixteenth
+Add-Harmony-Note Ab4 $Sixteenth
+Add-Harmony-Note F4  $Sixteenth
+Add-Harmony-Note Db4 $Sixteenth
+Add-Harmony-Note C4  $Sixteenth
+Add-Harmony-Note Ab3 $Sixteenth
+Add-Harmony-Note F3  $Sixteenth
+Add-Harmony-Note C3  $Sixteenth
 
 
 # Main 4/4 section.
@@ -502,44 +502,44 @@ for ($i = 1; $i -le 2; $i++) {
 
     for ($first = 1; $first -le 8; $first++)
     {
-        Add-HarmonyChord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
+        Add-Harmony-Chord $DHalfDim7 $Sixteenth
+        Add-Harmony-Rest        $Sixteenth
     }
 
     for ($second = 1; $second -le 8; $second++)
     {
-        Add-HarmonyChord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
+        Add-Harmony-Chord $DHalfDim7 $Sixteenth
+        Add-Harmony-Rest        $Sixteenth
     }
 
     for ($third = 1; $third -le 8; $third++)
     {
-        Add-HarmonyChord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
+        Add-Harmony-Chord $DHalfDim7 $Sixteenth
+        Add-Harmony-Rest        $Sixteenth
     }
 
     for ($fourth = 1; $fourth -le 8; $fourth++)
     {
-        Add-HarmonyChord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
+        Add-Harmony-Chord $DHalfDim7 $Sixteenth
+        Add-Harmony-Rest        $Sixteenth
     }
 
     for ($fifth = 1; $fifth -le 8; $fifth++)
     {
-        Add-HarmonyChord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
+        Add-Harmony-Chord $DHalfDim7 $Sixteenth
+        Add-Harmony-Rest        $Sixteenth
     }
     
     for ($sixth = 1; $sixth -le 8; $sixth++)
     {
-        Add-HarmonyChord $DHalfDim7 $Sixteenth
-        Add-HarmonyRest        $Sixteenth
+        Add-Harmony-Chord $DHalfDim7 $Sixteenth
+        Add-Harmony-Rest        $Sixteenth
     }
 
     # Repeat measures 7-10 / score measures 8-11.
     # The Ebm7 chord is tied across all four measures, so render it
     # as one continuous event rather than re-attacking it.
-    Add-HarmonyChord $Ebm7 ($Whole * 4.0)
+    Add-Harmony-Chord $Ebm7 ($Whole * 4.0)
 }
 
 Write-Host "Done Building Harmony"

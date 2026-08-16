@@ -64,6 +64,7 @@ $Notes = @{
     # Octave 4
     C4  = 261.6256
     D4  = 293.6648
+    Eb4 = 311.13
     E4  = 329.6276
     F4  = 349.2282
     G4  = 391.9954
@@ -110,15 +111,13 @@ $Notes = @{
     F8  = 5587.6517
 }
 
-$openingChords = @{
-    $Em7b5       = @("E3",  "G3",  "Bb3", "D4")
-    $Em7b5_G     = @("G3",  "Bb3", "D4",  "E4")
-    $Em7b5_Bb    = @("Bb3", "D4",  "E4",  "G4")
-    $Em7b5_D     = @("D4",  "E4",  "G4",  "Bb4")
-    $Em7b5_Octave = @("E4", "G4",  "Bb4", "D5")
-    $Em7b5_G_Octave = @("G4", "Bb4", "D5", "E5")
-}
-
+# opening chords
+$Em7b5       = @("E3",  "G3",  "Bb3", "D4")
+$Em7b5_G     = @("G3",  "Bb3", "D4",  "E4")
+$Em7b5_Bb    = @("Bb3", "D4",  "E4",  "G4")
+$Em7b5_D     = @("D4",  "E4",  "G4",  "Bb4")
+$Em7b5_Octave = @("E4", "G4",  "Bb4", "D5")
+$Em7b5_G_Octave = @("G4", "Bb4", "D5", "E5")
 # ------------------------------------------------------------
 # Musical Durations
 # ------------------------------------------------------------
@@ -204,7 +203,7 @@ function Add-Melody-Rest {
 
 $HarmonyScore = [System.Collections.Generic.List[object]]::new()
 
-function Add-HarmonyNote {
+function Add-Harmony-Note {
     param(
         [Parameter(Mandatory)]
         [string]$Note,
@@ -250,7 +249,7 @@ function Add-Harmony-Chord {
     })
 }
 
-function Add-HarmonyRest {
+function Add-Harmony-Rest {
     param(
         [Parameter(Mandatory)]
         [double]$DurationMs
@@ -267,10 +266,189 @@ Write-Host "Building Melody..."
 # THE MELODY
 # ============================================================
 
+Add-Melody-Chord $Em7b5 $TripleQuarter
+Add-Melody-Chord $Em7b5_G $TripleQuarter
+Add-Melody-Chord $Em7b5_Bb $TripleQuarter
+Add-Melody-Chord $Em7b5_D $TripleQuarter
+Add-Melody-Chord $Em7b5_Octave $TripleQuarter
+Add-Melody-Chord $Em7b5_G_Octave $TripleQuarter
 
 # repeat section twice
 for ($i = 1; $i -le 2; $i++)
 {
+    # measure 1
+    Add-Meolody-Note A6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note G6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note Fs6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note G6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    # measure 2
+
+    Add-Meolody-Note G6 $Sixteenth
+    Add-Meolody-Note C5 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+
+    Add-Meolody-Note F6 $Sixteenth
+    Add-Meolody-Note C5 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+
+    Add-Meolody-Note E6 $Sixteenth
+    Add-Meolody-Note C5 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+
+    Add-Meolody-Note F6 $Sixteenth
+    Add-Meolody-Note C5 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+
+    # measure 3
+
+    Add-Meolody-Note F6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
+
+    Add-Meolody-Note E6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
+
+    Add-Meolody-Note Ds6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
+
+    Add-Meolody-Note E6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
+
+    # measure 4
+
+    Add-Meolody-Note E6 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+    Add-Meolody-Note D5 $Sixteenth
+
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+    Add-Meolody-Note D5 $Sixteenth
+
+    Add-Meolody-Note Cs6 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+    Add-Meolody-Note D5 $Sixteenth
+
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note A5 $Sixteenth
+    Add-Meolody-Note F5 $Sixteenth
+    Add-Meolody-Note D5 $Sixteenth
+
+    # measure 5 which is identical to measure 1
+
+    Add-Meolody-Note A6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note G6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note Fs6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note G6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    # measure 6
+    Add-Meolody-Note Bb6 $Sixteenth
+    Add-Meolody-Note Eb6 $Sixteenth
+    Add-Meolody-Note C6 $Sixteenth
+    Add-Meolody-Note Fs5 $Sixteenth
+
+    Add-Meolody-Note A6 $Sixteenth
+    Add-Meolody-Note Eb6 $Sixteenth
+    Add-Meolody-Note C6 $Sixteenth
+    Add-Meolody-Note Fs5 $Sixteenth
+
+    Add-Meolody-Note Gs6 $Sixteenth
+    Add-Meolody-Note E6 $Sixteenth
+    Add-Meolody-Note C6 $Sixteenth
+    Add-Meolody-Note Fs5 $Sixteenth
+
+    Add-Meolody-Note A6 $Sixteenth
+    Add-Meolody-Note Eb6 $Sixteenth
+    Add-Meolody-Note C6 $Sixteenth
+    Add-Meolody-Note Fs5 $Sixteenth
+
+    # measure 7
+
+    Add-Meolody-Note C7 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note Bb6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note A6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    Add-Meolody-Note Bb6 $Sixteenth
+    Add-Meolody-Note D6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+
+    # measure 8
+
+    Add-Meolody-Note A6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
+
+    Add-Meolody-Note G6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
+
+    Add-Meolody-Note F6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
+
+    Add-Meolody-Note E6 $Sixteenth
+    Add-Meolody-Note Bb5 $Sixteenth
+    Add-Meolody-Note G5 $Sixteenth
+    Add-Meolody-Note E5 $Sixteenth
 
 }
 
@@ -282,11 +460,142 @@ Write-Host "Building Harmony..."
 # THE HARMONY / LEFT-HAND PART
 # ============================================================
 
+Add-Harmony-Note C3 $TripleQuarter
+Add-Harmony-Note E3 $TripleQuarter
+Add-Harmony-Note G3 $TripleQuarter
+Add-Harmony-Note Bb3 $TripleQuarter
+Add-Harmony-Note D4 $TripleQuarter
+Add-Harmony-Note E4 $TripleQuarter
+
 # repeat section twice
 for ($i = 1; $i -le 2; $i++) 
 {
+    # measure 1
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+    Add-Harmony-Note A3 ($Sixteenth + $Quarter + $Sixteenth)
 
+    Add-Harmony-Note D3 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
 
+    Add-Harmony-Note C4 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+
+    # measure 2
+    Add-Harmony-Note A2 $Sixteenth
+    Add-Harmony-Note A2 $Sixteenth
+    Add-Harmony-Note C3 $Sixteenth
+    Add-Harmony-Note F3 ($Sixteenth + $Quarter)
+
+    Add-Harmony-Note A2 $Sixteenth
+    Add-Harmony-Note A2 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note F3 $Sixteenth
+
+    Add-Harmony-Note C4 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note F3 $Sixteenth
+    Add-Harmony-Note C3 $Sixteenth
+
+    # measure 3
+    Add-Harmony-Note G2 $Sixteenth
+    Add-Harmony-Note G2 $Sixteenth
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note F3 ($Sixteenth + $Quarter)
+
+    Add-Harmony-Note G2 $Sixteenth
+    Add-Harmony-Note G2 $Sixteenth
+    Add-Harmony-Note F3 $Sixteenth
+    Add-Harmony-Note E3 $Sixteenth
+
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note E3 $Sixteenth
+    Add-Harmony-Note C3 $Sixteenth
+    Add-Harmony-Note Bb2 $Sixteenth
+
+    # measure 4
+    Add-Harmony-Note F2 $Sixteenth
+    Add-Harmony-Note F2 $Sixteenth
+    Add-Harmony-Note G2 $Sixteenth
+    Add-Harmony-Note E3 ($Sixteenth + $Quarter)
+
+    Add-Harmony-Note F2 $Sixteenth
+    Add-Harmony-Note F2 $Sixteenth
+    Add-Harmony-Note E3 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note F3 $Sixteenth
+    Add-Harmony-Note C4 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+
+    # measure 5
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+    Add-Harmony-Note A3 ($Sixteenth + $Quarter)
+
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+
+    Add-Harmony-Note D4 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+
+    # measure 6  
+    Add-Harmony-Note A2 $Sixteenth
+    Add-Harmony-Note A2 $Sixteenth
+    Add-Harmony-Note C3 $Sixteenth
+    Add-Harmony-Note C4 ($Sixteenth + $Quarter)
+
+    Add-Harmony-Note D3 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+    Add-Harmony-Note C4 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+
+    Add-Harmony-Note Eb4 $Sixteenth
+    Add-Harmony-Note D4 $Sixteenth
+    Add-Harmony-Note C4 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+
+    # measure 7
+    Add-Harmony-Note G2 $Sixteenth
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+    Add-Harmony-Note Bb3 ($Sixteenth + $Quarter)
+
+    Add-Harmony-Note G2 $Sixteenth
+    Add-Harmony-Note Bb2 $Sixteenth
+    Add-Harmony-Note Bb3 $Sixteenth
+    Add-Harmony-Note A3 $Sixteenth
+
+    Add-Harmony-Note C4 $Sixteenth
+    Add-Harmony-Note Bb3 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note D3 $Sixteenth
+
+    # measure 8
+    Add-Harmony-Note C3 $Sixteenth
+    Add-Harmony-Note C3 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+    Add-Harmony-Note Bb3 ($Sixteenth + $Quarter)
+
+    Add-Harmony-Note C3 $Sixteenth
+    Add-Harmony-Note C3 $Sixteenth
+    Add-Harmony-Note Bb3 $Sixteenth
+    Add-Harmony-Note G3 $Sixteenth
+
+    Add-Harmony-Note E4 $Sixteenth
+    Add-Harmony-Note D4 $Sixteenth
+    Add-Harmony-Note G4 $Sixteenth
+    Add-Harmony-Note E4 $Sixteenth
 }
 
 Write-Host "Done Building Harmony"
